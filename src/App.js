@@ -1,25 +1,54 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useReducer } from "react"
+import Main from './Main'
+import Header from "./Header"
+import Loader from './Loader'
+import Error from './Error'
+import StartScreen from "./StartScreen"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const initialState = {
+  question : [],
+  status : 'loading'
 }
 
-export default App;
+const reducer = (state,action)=>{
+  switch(action.type){
+    case 'dataReceived':
+      return {...state,question : action.payload,status : 'ready'}
+    case 'dataFailed' : 
+      return {...state,status : 'error'}
+    default : 
+      throw new Error('Action unknown')
+
+  }
+   
+
+}
+
+const App = () => {
+
+  const [state,dispatch] = useReducer(reducer,initialState)
+  const {question,status} = state
+
+  const numQuestion = question.length
+
+  useEffect(()=>{
+    fetch('http://localhost:8000/question')
+    .then(res=>res.json())
+    .then(data=>dispatch({type : 'dataReceived',payload : data}))
+    .catch(err=>dispatch({type : 'dataFailed'}))
+  },[])
+
+  return (
+    <div>
+      <Header/>
+
+      <Main>
+        {status === 'loading' && <Loader/> }
+        {status === 'error' && <Error/>}
+        {status === 'ready' && <StartScreen numQuestion={numQuestion}/>}
+      </Main>
+    </div>
+  )
+}
+
+export default App
