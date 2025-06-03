@@ -1,12 +1,14 @@
-import React from 'react'
-
-const StartScreen = ({numQuestion}) => {
+const StartScreen = ({ numQuestion,dispatch }) => {
   return (
-    <div>
-        <h2>Welcome to The React Quiz!</h2>
-        <p>{numQuestion} question to test your React mastery</p>
+    <div className="text-center">
+      <h3>Welcome to the React Quiz!</h3>
+      <p>{numQuestion} questions to test your mastery.</p>
+      <button 
+        className="btn btn-primary mt-3"
+        onClick={()=>dispatch({type : 'start'})}
+      >Start Quiz</button>
     </div>
-  )
-}
+  );
+};
 
-export default StartScreen
+export default StartScreen;

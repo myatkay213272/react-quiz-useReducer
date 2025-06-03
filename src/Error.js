@@ -1,11 +1,9 @@
-import React from 'react'
-
 const Error = () => {
   return (
-    <span>
-        There was an error fetching questions.
-    </span>
-  )
-}
+    <div className="alert alert-danger" role="alert">
+      There was an error fetching questions.
+    </div>
+  );
+};
 
-export default Error
+export default Error;

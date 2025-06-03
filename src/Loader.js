@@ -1,11 +1,10 @@
-import React from 'react'
-
 const Loader = () => {
   return (
-    <div>
-        <p>Loading questions....</p>
+    <div className="text-center">
+      <div className="spinner-border text-primary" role="status" />
+      <p className="mt-3">Loading...</p>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;
