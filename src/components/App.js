@@ -8,7 +8,8 @@ import Question from "./Question";
 
 const initialState = {
   question: [],
-  status: 'loading'
+  status: 'loading',
+  index :0
 };
 
 const reducer = (state, action) => {
@@ -26,7 +27,7 @@ const reducer = (state, action) => {
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { question, status } = state;
+  const { question, status,index } = state;
   const numQuestion = question.length;
 
   useEffect(() => {
@@ -46,7 +47,9 @@ const App = () => {
                                   numQuestion={numQuestion} 
                                   dispatch={dispatch}
                                 />}
-        {status === 'active' && <Question/>}
+        {status === 'active' && <Question
+                                  question={question[index]}/>
+        }
       </Main>
     </div>
   );
