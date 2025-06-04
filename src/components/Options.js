@@ -6,8 +6,7 @@ const Options = ({ question, dispatch, answer }) => {
   return (
     <div>
       {question.options.map((option, index) => {
-        // console.log(option,index,answer)
-        // console.log(question.correctOption)
+        console.log(option,index,answer,question.correctOption)
 
         const isCorrect = option === question.correctOption
         const isSelected = index === answer

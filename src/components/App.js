@@ -6,6 +6,7 @@ import Loader from './Loader';
 import Error from './Error';
 import StartScreen from "./StartScreen";
 import Question from "./Question";
+import NextButton from "./NextButton";
 
 const initialState = {
   question: [],
@@ -26,17 +27,17 @@ const reducer = (state, action) => {
     case 'start':
       return { ...state, status: 'active' };
    case 'newAnswer': {
-      const currentQuestion = state.question[state.index];
-      const selectedOption = currentQuestion.options[action.payload];
+      const currentQuestion = state.question[state.index]
+      const selectedOption = currentQuestion.options[action.payload]
       const isCorrect = selectedOption === currentQuestion.correctOption;
-
       return {
         ...state,
         answer: action.payload,
         points: isCorrect ? state.points + currentQuestion.points : state.points
       };
     }
-
+    case 'nextQuestion' :
+      return {...state,index : state.index + 1,answer : null}
     
       
     default:
@@ -66,11 +67,14 @@ const App = () => {
           <StartScreen numQuestion={numQuestion} dispatch={dispatch} />
         )}
         {status === 'active' && (
-          <Question
+          <>
+            <Question
             question={question[index]}
             dispatch={dispatch}
             answer={answer}
-          />
+            />
+            <NextButton dispatch={dispatch} answer={answer}/>
+          </>
         )}
       </Main>
     </div>
