@@ -1,4 +1,4 @@
-const FinishScreen = ({points,maxPossiblePoints,highscore}) => {
+const FinishScreen = ({points,maxPossiblePoints,highscore,dispatch}) => {
 
     const percentage = (points/maxPossiblePoints) * 100
 
@@ -18,6 +18,13 @@ const FinishScreen = ({points,maxPossiblePoints,highscore}) => {
     </p>
 
     <p>(Highscore :{highscore} points)</p>
+
+     <button 
+      className="btn btn-primary mt-3" 
+      onClick={() => dispatch({type : 'restart' })}
+    >
+     Restart quiz
+    </button>
    </>
   )
 }

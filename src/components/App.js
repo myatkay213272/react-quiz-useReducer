@@ -53,6 +53,20 @@ const reducer = (state, action) => {
           ? state.points 
           : state.highscore
       }
+    case 'restart':
+      return {
+        ...initialState,
+        question : state.question,
+        status : 'ready'
+      }
+      // return {
+      //   ...state,
+      //   points : 0,
+      //   highscore : 0,
+      //   index :0,
+      //   answer : null,
+      //   status : 'ready'
+      // }
       
     default:
       throw new Error('Action unknown');
@@ -109,7 +123,9 @@ const App = () => {
             <FinishScreen 
               points={points}
               maxPossiblePoints={maxPossiblePoints}
-              highscore={highscore}/>
+              highscore={highscore}
+              dispatch={dispatch}
+              />
           )}
       </Main>
     </div>
