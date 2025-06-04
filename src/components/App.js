@@ -12,6 +12,8 @@ import FinishScreen from "./FinishScreen";
 import Timer from "./Timer";
 import Footer from "./Footer";
 
+const SEC_PER_QUESTION = 30
+
 const initialState = {
   question: [],
   status: 'loading',
@@ -19,7 +21,7 @@ const initialState = {
   answer: null,
   points : 0,
   highscore : 0,
-  secondRemaining : 10
+  secondRemaining : null
 };
 
 
@@ -31,7 +33,11 @@ const reducer = (state, action) => {
     case 'dataFailed':
       return { ...state, status: 'error' };
     case 'start':
-      return { ...state, status: 'active' };
+      return { 
+        ...state,
+        status: 'active',
+        secondRemaining : state.question.length * SEC_PER_QUESTION
+       };
    case 'newAnswer': {
       const currentQuestion = state.question[state.index]
       const selectedOption = currentQuestion.options[action.payload]
